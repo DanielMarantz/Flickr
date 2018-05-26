@@ -1,6 +1,8 @@
 package com.flickr.assessment.flickrassessment.model;
 
-public class Items {
+import android.support.annotation.NonNull;
+
+public class Items implements Comparable<Items> {
 
     private String tags;
     private String author;
@@ -84,4 +86,14 @@ public class Items {
         this.media = media;
     }
 
+    /**
+     * Sort newest to oldest by the date taken.
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public int compareTo(@NonNull Items o) {
+        return o.getDate_taken().compareTo(getDate_taken());
+    }
 }

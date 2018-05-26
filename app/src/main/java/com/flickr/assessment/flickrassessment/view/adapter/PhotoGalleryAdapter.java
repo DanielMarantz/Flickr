@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.flickr.assessment.flickrassessment.R;
 import com.flickr.assessment.flickrassessment.model.Items;
 import com.flickr.assessment.flickrassessment.model.Media;
+import com.flickr.assessment.flickrassessment.util.DateUtil;
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +60,8 @@ public class PhotoGalleryAdapter extends RecyclerView.Adapter<PhotoGalleryAdapte
         Items photoData = photos[position];
         holder.title.setText(photoData.getTitle());
 
-        holder.dateTaken.setText(photoData.getDate_taken());
+        Date date = DateUtil.parseFlickrDateTaken(photoData.getDate_taken());
+        holder.dateTaken.setText(DateUtil.getDateInFormat(DateUtil.PHOTO_DATE_TAKEN, date));
 
         Media media = photoData.getMedia();
         Picasso.with(holder.photo.getContext()).load(media.getM()).into(holder.photo);
