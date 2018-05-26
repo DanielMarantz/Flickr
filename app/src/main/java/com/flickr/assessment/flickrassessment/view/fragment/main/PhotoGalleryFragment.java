@@ -27,6 +27,7 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialView();
+        presenter.getPhotos();
     }
 
     @Override
