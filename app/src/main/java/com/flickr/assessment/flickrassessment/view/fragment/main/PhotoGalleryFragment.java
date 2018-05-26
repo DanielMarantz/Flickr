@@ -172,6 +172,11 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements
         }
     }
 
+    private void openWebBrowser(String photoLink) {
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse(photoLink)));
+    }
+
     private void showProgressSpinner(boolean isVisible) {
         progressBar.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
@@ -196,6 +201,7 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements
 
     @Override
     public void onExploreClicked(int position) {
-
+        Items pictureData = mAdapter.getPhoto(position);
+        openWebBrowser(pictureData.getLink());
     }
 }
