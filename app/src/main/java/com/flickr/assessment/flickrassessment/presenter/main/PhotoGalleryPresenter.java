@@ -1,12 +1,9 @@
 package com.flickr.assessment.flickrassessment.presenter.main;
 
-import android.util.Log;
-
 import com.flickr.assessment.flickrassessment.di.scope.PerSection;
+import com.flickr.assessment.flickrassessment.helper.RestHelper;
 import com.flickr.assessment.flickrassessment.presenter.base.BasePresenter;
 import com.flickr.assessment.flickrassessment.view.panel.PhotoGalleryPanel;
-
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -15,11 +12,12 @@ public class PhotoGalleryPresenter extends BasePresenter<PhotoGalleryPanel> {
 
     private static final String TAG = PhotoGalleryPresenter.class.getSimpleName();
 
+    private RestHelper mRestHelper;
     private PhotoGalleryPanel mPanel;
 
     @Inject
-    public PhotoGalleryPresenter() {
-
+    public PhotoGalleryPresenter(RestHelper restHelper) {
+        this.mRestHelper = restHelper;
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.flickr.assessment.flickrassessment.R;
 import com.flickr.assessment.flickrassessment.di.component.DaggerMainViewComponent;
 import com.flickr.assessment.flickrassessment.di.component.MainViewComponent;
+import com.flickr.assessment.flickrassessment.di.module.RestModule;
 import com.flickr.assessment.flickrassessment.view.activity.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
@@ -22,6 +23,7 @@ public class MainActivity extends BaseActivity {
     public void initialInjector() {
         mMainViewComponent = DaggerMainViewComponent.builder()
                 .baseFlickrComponent(getMainApplication().getMainComponent())
+                .restModule(new RestModule(this))
                 .build();
         mMainViewComponent.inject(this);
     }
