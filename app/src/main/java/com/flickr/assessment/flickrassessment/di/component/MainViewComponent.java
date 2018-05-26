@@ -1,7 +1,7 @@
 package com.flickr.assessment.flickrassessment.di.component;
 
-import com.flickr.assessment.flickrassessment.MainActivity;
 import com.flickr.assessment.flickrassessment.di.scope.PerSection;
+import com.flickr.assessment.flickrassessment.view.activity.main.MainActivity;
 
 import dagger.Component;
 
