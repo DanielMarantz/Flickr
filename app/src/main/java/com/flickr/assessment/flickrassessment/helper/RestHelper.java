@@ -11,6 +11,12 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
+/**
+ * RestHelper is a helper for Observable API endpoints.
+ * <p>
+ * NOTE: Helpers are injected into the presenters and should
+ * never touch the view layer.
+ */
 @Singleton
 public class RestHelper {
 
@@ -23,5 +29,9 @@ public class RestHelper {
 
     public Observable<Feed> getPublicPhotos() {
         return restService.getPublicPhotos();
+    }
+
+    public Observable<Feed> searchPublicPhotos(final String tags) {
+        return restService.searchPublicPhotos(tags);
     }
 }

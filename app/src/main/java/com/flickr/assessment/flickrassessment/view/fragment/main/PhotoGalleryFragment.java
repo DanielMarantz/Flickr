@@ -1,11 +1,16 @@
 package com.flickr.assessment.flickrassessment.view.fragment.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
 import com.flickr.assessment.flickrassessment.R;
@@ -20,13 +25,28 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-
+/**
+ * PhotoGalleryFragment displays a Public Photo Gallery for the view layer.
+ * <p>
+ * MainViewComponent is built in the parent activity
+ * and injected into the fragment.
+ * <p>
+ * Note: Fragments are the interaction with the user and the
+ * view layer. User interactions are propagated to the presentation
+ * layer for heavier processing.
+ */
 public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements PhotoGalleryPanel,
         PhotoGalleryAdapter.RecyclerClickListener {
 
     @Inject
     PhotoGalleryPresenter presenter;
 
+    @BindView(R.id.photo_gallery_search_container)
+    Toolbar searchContainerView;
+    @BindView(R.id.photo_gallery_search)
+    SearchView searchView;
+    @BindView(R.id.photo_gallery_fab)
+    FloatingActionButton fabView;
     @BindView(R.id.photo_gallery_recycler)
     RecyclerView recyclerView;
     @BindView(R.id.photo_gallery_no_results)
@@ -70,7 +90,56 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements
     }
 
     private void initialView() {
+        initialSearchView();
+        initialListeners();
+    }
 
+    private void initialSearchView() {
+        searchView.setQueryHint(getString(R.string.search_tool_tip));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String tags) {
+                showProgressSpinner(true);
+                presenter.searchPhotos(tags);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    private void initialListeners() {
+        searchContainerView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+                searchView.requestFocus();
+            }
+        });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+            }
+        });
+        fabView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+                searchView.requestFocus();
+            }
+        });
     }
 
     private void renderPhotos(Items[] photos) {

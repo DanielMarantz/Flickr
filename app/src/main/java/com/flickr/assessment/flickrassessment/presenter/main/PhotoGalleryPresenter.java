@@ -18,6 +18,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * PhotoGalleryPresenter is the presentation layer for the PhotoGalleryFragment.
+ * <p>
+ * Note: Presenters keep the heavy processing off of the view layer
+ * and delegate data to other areas to the application based on business
+ * requirements.
+ */
 @PerSection
 public class PhotoGalleryPresenter extends BasePresenter<PhotoGalleryPanel> {
 
@@ -39,6 +46,39 @@ public class PhotoGalleryPresenter extends BasePresenter<PhotoGalleryPanel> {
     public void getPhotos() {
 
         mRestHelper.getPublicPhotos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Feed>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e);
+                        mPanel.onError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onCompleted");
+                    }
+
+                    @Override
+                    public void onNext(Feed response) {
+                        Log.d(TAG, "onNext: " + response.toString());
+                        Items[] sortedItems = response.getItems();
+                        Arrays.sort(sortedItems);
+                        mPanel.onRenderPhotos(sortedItems);
+                    }
+                });
+    }
+
+    public void searchPhotos(final String tags) {
+
+        mRestHelper.searchPublicPhotos(tags)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Feed>() {
