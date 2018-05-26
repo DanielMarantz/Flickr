@@ -8,7 +8,6 @@ import com.flickr.assessment.flickrassessment.api.RestService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-
 @Singleton
 public class RestHelper {
 
@@ -18,6 +17,4 @@ public class RestHelper {
     public RestHelper(Context context) {
         restService = new RestClient().getService();
     }
-
-
 }

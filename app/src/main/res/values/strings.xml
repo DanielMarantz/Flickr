@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Flickr Assessment</string>
+
+    <!-- Global View -->
+    <string name="app_name">Flickr Photo Gallery</string>
+
+    <!-- Photo Gallery View -->
+    <string name="collapsing_toolbar_title">Flickr Photos</string>
+    <string name="search_tool_tip">Search by tag</string>
+    <string name="share">SHARE</string>
+    <string name="explore">EXPLORE</string>
+    <string name="failed_to_fetch_photos">Failed to retrieve photos, please try again...</string>
+    <string name="no_email_apps">Sorry, no email apps available...</string>
+    <string name="no_search_results">Sorry, no search results...</string>
+    <string name="email_subject">Shared Flickr Photo</string>
+
 </resources>
