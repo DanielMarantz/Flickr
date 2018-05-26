@@ -1,6 +1,9 @@
 package com.flickr.assessment.flickrassessment.view.fragment.main;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -157,6 +160,18 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements
         }
     }
 
+    private void sharePhotoByEmail(String photoLink) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
+        emailIntent.putExtra(Intent.EXTRA_TEXT, photoLink);
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        } catch (ActivityNotFoundException e) {
+            showSnackBar(getView(), getString(R.string.no_email_apps));
+        }
+    }
+
     private void showProgressSpinner(boolean isVisible) {
         progressBar.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
@@ -175,7 +190,8 @@ public class PhotoGalleryFragment extends BaseFragmentWithButterKnife implements
 
     @Override
     public void onShareClicked(int position) {
-
+        Items pictureData = mAdapter.getPhoto(position);
+        sharePhotoByEmail(pictureData.getLink());
     }
 
     @Override
