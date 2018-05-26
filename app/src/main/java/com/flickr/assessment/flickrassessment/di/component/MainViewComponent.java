@@ -2,6 +2,7 @@ package com.flickr.assessment.flickrassessment.di.component;
 
 import com.flickr.assessment.flickrassessment.di.scope.PerSection;
 import com.flickr.assessment.flickrassessment.view.activity.main.MainActivity;
+import com.flickr.assessment.flickrassessment.view.fragment.main.PhotoGalleryFragment;
 
 import dagger.Component;
 
@@ -17,4 +18,5 @@ import dagger.Component;
 
 public interface MainViewComponent {
     void inject(MainActivity mainActivity);
+    void inject(PhotoGalleryFragment photoGalleryFragment);
 }
