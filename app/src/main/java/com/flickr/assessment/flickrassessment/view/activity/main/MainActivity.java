@@ -7,6 +7,7 @@ import com.flickr.assessment.flickrassessment.di.component.DaggerMainViewCompone
 import com.flickr.assessment.flickrassessment.di.component.MainViewComponent;
 import com.flickr.assessment.flickrassessment.di.module.RestModule;
 import com.flickr.assessment.flickrassessment.view.activity.base.BaseActivity;
+import com.flickr.assessment.flickrassessment.view.fragment.main.PhotoGalleryFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,6 +34,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initialView() {
+        showPhotoGalleryFragment();
+    }
 
+    public void showPhotoGalleryFragment() {
+        addFragment(R.id.fragment_container, new PhotoGalleryFragment());
     }
 }
