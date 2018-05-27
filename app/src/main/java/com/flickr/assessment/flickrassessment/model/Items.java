@@ -2,6 +2,9 @@ package com.flickr.assessment.flickrassessment.model;
 
 import android.support.annotation.NonNull;
 
+/**
+ * Flickr model of a photo data.
+ */
 public class Items implements Comparable<Items> {
 
     private String tags;

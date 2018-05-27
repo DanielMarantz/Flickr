@@ -1,5 +1,8 @@
 package com.flickr.assessment.flickrassessment.model;
 
+/**
+ * Flickr model of a source feed.
+ */
 public class Feed {
 
     private String title;
